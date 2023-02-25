@@ -3,7 +3,7 @@
 local M = {}
 
 local function __formatJSON(data)
-  local command = "echo " .. "'" .. data .. "' | prettier --parser json-stringify --tab-width 4"
+  local command = "echo " .. "'" .. data .. "' | prettier --parser json --tab-width 4"
 
   local handle = io.popen(command)
   -- assert(handle ~= nil)
@@ -46,7 +46,7 @@ function M.NewLaunchConfig(path, formatOutput)
   local resolved_path = path or (vim.fn.getcwd() .. "/.vscode/launch.json")
   local resolved_fmt = formatOutput or true
 
-  local config = require("configs").getConfig(vim.bo.filetype)
+  local config = require("launch-gen.configs").getConfig(vim.bo.filetype)
 
   local data
   local encoded_json
